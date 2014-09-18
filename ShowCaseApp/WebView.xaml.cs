@@ -35,12 +35,6 @@ namespace ShowCaseApp
         public WebView()
         {
             this.InitializeComponent();
-            //var localFolder = KnownFolders.MusicLibrary;
-
-            //var folder = await localFolder.GetFolderAsync("myhtmlunzip");
-
-
-            //var file = await folder.GetFileAsync("index.html");
         }
 
         /// <summary>
@@ -55,10 +49,10 @@ namespace ShowCaseApp
 
             MyWebViewControl.NavigateToLocalStreamUri(MyUrl, new MyStreamUriResolver());
 
-            HardwareButtons.BackPressed += this.MainPage_BackPressed;
+            HardwareButtons.BackPressed += this.HardwareButton_BackPressed;
         }
 
-        private void MainPage_BackPressed(object sender, BackPressedEventArgs e)
+        private void HardwareButton_BackPressed(object sender, BackPressedEventArgs e)
         {
             if (this.Frame.CanGoBack)
             {
@@ -86,8 +80,18 @@ namespace ShowCaseApp
         {
             try
             {
-                Uri localUri = new Uri("ms-appdata://" + path);
-                StorageFile file = await StorageFile.GetFileFromApplicationUriAsync(localUri);
+                // Picking Only The Index.html 
+                // Probably The Mistake Why It Doesn't Load JS and CSS Files
+                var localFolder = KnownFolders.MusicLibrary;
+                var folder = await localFolder.GetFolderAsync("myhtmlunzip");
+                var file = await folder.GetFileAsync("index.html");
+
+
+                // This Should Work But It Doesn't
+                // Excepion: System.IO.FileNotFoundException: The system cannot find the file specified.
+                //Uri localUri = new Uri("ms-appx://" + path);
+                //StorageFile file = await StorageFile.GetFileFromApplicationUriAsync(localUri);
+
 
                 IRandomAccessStream stream = await file.OpenAsync(FileAccessMode.Read).AsTask().ConfigureAwait(false);
 

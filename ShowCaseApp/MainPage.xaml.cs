@@ -54,11 +54,12 @@ namespace ShowCaseApp
 
         private void MainPage_BackPressed(object sender, BackPressedEventArgs e)
         {
-            if (this.Frame.CanGoBack)
-            {
-                e.Handled = true;
-                this.Frame.GoBack();
-            }
+            App.Current.Exit();
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            HardwareButtons.BackPressed -= this.MainPage_BackPressed;
         }
 
         private async void UnpackZipFiles()
