@@ -43,11 +43,11 @@ namespace ShowCaseApp
 
             this.NavigationCacheMode = NavigationCacheMode.Required;
 
-            HardwareButtons.BackPressed += this.MainPage_BackPressed;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            HardwareButtons.BackPressed += this.MainPage_BackPressed;
             appName = "myhtml.zip";
             localFolder = KnownFolders.MusicLibrary;
         }
