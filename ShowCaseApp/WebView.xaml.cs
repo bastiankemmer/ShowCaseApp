@@ -82,9 +82,10 @@ namespace ShowCaseApp
             {
                 // Picking Only The Index.html 
                 // Probably The Mistake Why It Doesn't Load JS and CSS Files
+                var arr = path.Split('/');
                 var localFolder = KnownFolders.MusicLibrary;
                 var folder = await localFolder.GetFolderAsync("myhtmlunzip");
-                var file = await folder.GetFileAsync("index.html");
+                var file = await folder.GetFileAsync(arr[arr.Length-1]);
 
 
                 // This Should Work But It Doesn't
